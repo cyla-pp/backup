@@ -2,6 +2,8 @@
 - name: Backup Huawei USG6305E Configuration
   hosts: usg6305e
   gather_facts: no
+  collections:
+    - ansible.netcommon
   vars:
     backup_dir: "/backups/huawei"   # ← 关键！挂载点
     timestamp: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
