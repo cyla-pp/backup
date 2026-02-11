@@ -1,15 +1,14 @@
----
 - name: Backup Huawei USG6305E Configuration
   hosts: usg6305e
   gather_facts: no
-  collections:
-    - ansible.netcommon
+
   vars:
-    backup_dir: "/backups/huawei"   # ← 关键！挂载点
+    backup_dir: "/backups/huawei"
     timestamp: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
     filename: "usg6305e_{{ inventory_hostname }}_{{ timestamp }}.cfg"
 
   tasks:
+
     - name: Ensure backup directory exists
       delegate_to: localhost
       run_once: true
@@ -19,10 +18,8 @@
         mode: '0755'
 
     - name: Execute display current-configuration
-      cli_command:
+      ansible.netcommon.cli_command:
         command: display current-configuration
-        prompt: "> "
-        answer: ""
       register: config_output
 
     - name: Save configuration to file
@@ -30,3 +27,4 @@
         content: "{{ config_output.stdout }}"
         dest: "{{ backup_dir }}/{{ filename }}"
       delegate_to: localhost
+
