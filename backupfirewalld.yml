@@ -3,7 +3,7 @@
   gather_facts: no
 
   vars:
-    backup_dir: "/backups/huawei"
+    backup_dir: "/runner/project/backups/huawei"
     timestamp: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
     filename: "usg6305e_{{ inventory_hostname }}_{{ timestamp }}.cfg"
 
